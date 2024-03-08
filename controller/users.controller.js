@@ -23,7 +23,15 @@ const getUser = async (req, res) => {
 
 const postUser = async (req, res) => {
     try {
-        const user = await User.create(req.body);
+        const {name, email, number, address, country } = req.body;
+        const newUser = new User({
+            name : name,
+            email : email,
+            number : number,
+            address : address,
+            country : country
+        });
+        await newUser.save();
         res.status(200).json(user);
     } catch (error) {
         res.status(500).json({message : error.message});

@@ -2,11 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 require('dotenv').config();
+const cors = require('cors');
 const userRoutes = require("./routes/users.routes");
 const userName = process.env.APP_USER_NAME;
 const password = process.env.APP_PASSWORD;
 
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended : false}));
 app.use("/api/user", userRoutes);
 
 app.get("/", function (req, res) {
